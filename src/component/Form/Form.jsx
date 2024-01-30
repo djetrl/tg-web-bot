@@ -46,7 +46,7 @@ const Form = () => {
       <select 
             className={'select'} 
             value={subject} 
-            onChangeSubject={onChangeSubject}>
+            onChange={onChangeSubject}>
         <option value={'physical'}>физ.лицо</option>
         <option value={'legal'}>Юр.лицо</option>
       </select>
