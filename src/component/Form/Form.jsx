@@ -16,9 +16,9 @@ const Form = () => {
     tg.sendData(JSON.stringify(data))
   },[])
   useEffect(()=>{
-    tg.WebApp.onEvent('mainButtonClicked', onSendDate);
+    tg.onEvent('mainButtonClicked', onSendDate);
     return ()=>{
-      tg.WebApp.offEvent('mainButtonClicked', onSendDate);
+      tg.offEvent('mainButtonClicked', onSendDate);
     }
   },[])
   useEffect(() => {
