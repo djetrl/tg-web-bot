@@ -24,7 +24,7 @@ const ProductList = () => {
   const onAdd = (product) => {
     const alreadyAdded = addedItems.find(item => item.id === product.id);
     let newItems = [];
-
+  
     if(alreadyAdded){
       newItems = addedItems.filter(item => item.id !== product.id);
     }else{
@@ -44,12 +44,12 @@ const ProductList = () => {
   return (
     <div className="list">
       {
-        product.map(item=>{
+        product.map(item=>(
           <ProductItem
               product={item}
               onAdd={onAdd}
               className={'item'}/>
-        })
+        ))
       }      
     </div>
   );
