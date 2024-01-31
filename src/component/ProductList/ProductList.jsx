@@ -27,7 +27,7 @@ const ProductList = () => {
       totalPrice: getTotalPrice(addedItems),
       queryId,
     }
-    fetch('https://comfy-puppy-c041ba.netlify.app/',{
+    fetch('https://nodebot-kli7.onrender.com/web-data',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
