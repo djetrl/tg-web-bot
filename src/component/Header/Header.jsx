@@ -1,7 +1,9 @@
 import React from 'react';
 import Button from '../button/Button';
-import './Header.css'
 import { useTelegram } from '../../hooks/useTelegram';
+import shop from '../../asset/icon/shop.svg';
+import { ReactSVG } from 'react-svg';
+import './Header.css'
 const Header = () => {
   const {tg, onClose, user} = useTelegram();
   return (
@@ -10,6 +12,7 @@ const Header = () => {
       <span className='username'>
         {user?.username}
       </span>
+      <button>  <ReactSVG src={shop} className='shop'/></button>
     </div>
   );
 };

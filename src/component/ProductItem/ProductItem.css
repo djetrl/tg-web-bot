@@ -13,6 +13,7 @@
 }
 .description{
   font-size: 0.8em;
+  background: var(--tg-theme-bg-color);
 }
 .add-btn {
   width: 100%;
