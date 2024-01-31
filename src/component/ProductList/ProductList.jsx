@@ -19,7 +19,7 @@ const getTotalPrice = (items = [])=>{
   }, 0)
 }
 const ProductList = () => {
-  const [addedItems, setAddedItems] = useState();
+  const [addedItems, setAddedItems] = useState([]);
   const {tg} = useTelegram();
   const onAdd = (product) => {
     const alreadyAdded = addedItems.find(item => item.id === product.id);
@@ -31,7 +31,7 @@ const ProductList = () => {
       newItems = [...addedItems, product]
     }
     setAddedItems(newItems);
-    if(newItems.length === 0 ){
+    if(newItems.length === 0){
       tg.MainButton.hide();
 
     }else{
