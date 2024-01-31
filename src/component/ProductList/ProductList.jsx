@@ -20,7 +20,27 @@ const getTotalPrice = (items = [])=>{
 }
 const ProductList = () => {
   const [addedItems, setAddedItems] = useState([]);
-  const {tg} = useTelegram();
+  const {tg, queryId} = useTelegram();
+  const onSendDate = useCallback(()=>{
+    const data = {
+      product: addedItems, 
+      totalPrice: getTotalPrice(addedItems),
+      queryId,
+    }
+    fetch('https://tg-web-bot-node-production.up.railway.app/',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify(data)
+    })
+  },[country, street, subject])
+  useEffect(()=>{
+    tg.onEvent('mainButtonClicked', onSendDate);
+    return ()=>{
+      tg.offEvent('mainButtonClicked', onSendDate);
+    }
+  },[onSendDate])
   const onAdd = (product) => {
     const alreadyAdded = addedItems.find(item => item.id === product.id);
     let newItems = [];
