@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './ProductList.css';
 import ProductItem from '../ProductItem/ProductItem';
 import {useTelegram} from '../../hooks/useTelegram';
@@ -27,7 +27,7 @@ const ProductList = () => {
       totalPrice: getTotalPrice(addedItems),
       queryId,
     }
-    fetch('https://tg-web-bot-node-production.up.railway.app/',{
+    fetch('https://comfy-puppy-c041ba.netlify.app/',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
