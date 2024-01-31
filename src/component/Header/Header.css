@@ -9,21 +9,22 @@
 .username{
   margin-left: auto;
 }
-.shop svg{
-  width: 30px;
-  height: 30px;
-  fill: var(--tg-theme-text-color);
-  transition: all .5s linear;
-}
-button:has(.shop){
+
+.shopIcon{
   border:none;
   background:inherit;
   cursor: pointer;
   transition: all .5s linear;
 }
-button:has(.shop):active{
-  transform: scale(.9);
+.shopIcon svg{
+  width: 30px;
+  height: 30px;
+  fill: var(--tg-theme-text-color);
+  transition: all .1s ease;
 }
-button:has(.shop):active svg{
+.shopIcon:active{
+  transform: scale(.8);
+}
+.shopIcon:active svg{
   fill:var(--tg-theme-button-color);
 }
