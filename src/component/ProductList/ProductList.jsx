@@ -46,6 +46,7 @@ const ProductList = () => {
       {
         product.map(item=>(
           <ProductItem
+              key={item.id}
               product={item}
               onAdd={onAdd}
               className={'item'}/>
