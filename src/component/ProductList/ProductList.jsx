@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect  } from 'react';
 import './ProductList.css';
 import ProductItem from '../ProductItem/ProductItem';
 import {useTelegram} from '../../hooks/useTelegram';
+import UseActionBasket from '../../redux/Slice/basket/ActionbasketShop';
 const product = [
   {id:'1', title:'Джинсы', price: 5000, description: 'Синего цвета, прямые'},
   {id:'2', title:'Куртка', price: 12000, description: 'Зеленого цвета, теплая'},
@@ -21,6 +22,7 @@ const getTotalPrice = (items = [])=>{
 const ProductList = () => {
   const [addedItems, setAddedItems] = useState([]);
   const {tg, queryId} = useTelegram();
+  const {AddItem} = UseActionBasket();
   const onSendDate = useCallback(()=>{
     const data = {
       product: addedItems, 
@@ -44,11 +46,11 @@ const ProductList = () => {
   const onAdd = (product) => {
     const alreadyAdded = addedItems.find(item => item.id === product.id);
     let newItems = [];
-  
     if(alreadyAdded){
       newItems = addedItems.filter(item => item.id !== product.id);
     }else{
       newItems = [...addedItems, product]
+      AddItem(product)
     }
     setAddedItems(newItems);
     if(newItems.length === 0){
