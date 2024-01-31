@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../button/Button';
 import { useTelegram } from '../../hooks/useTelegram';
-import shop from '../../asset/icon/shop.svg';
+import shop from './src/asset/icon/shop.svg';
 import { ReactSVG } from 'react-svg';
 import './Header.css'
 const Header = () => {
