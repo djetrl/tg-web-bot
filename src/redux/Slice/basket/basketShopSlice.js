@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-
 const initialState = {
   items:[],
   totalCount:0
@@ -13,8 +12,22 @@ export const basketSlice = createSlice({
       state.items.push(action.payload)
       state.totalCount += +action.payload.price
     },
+    AddItemCount: (state, action)=>{
+      const indexItem = state.items.findIndex(item=>item.id == action.payload);
+      state.items[indexItem].count = state.items[indexItem].count + 1
+
+      state.totalCount += state.items[indexItem].price;
+    }, 
+    decreaseItemCount: (state, action)=>{
+      const indexItem = state.items.findIndex(item=>item.id == action.payload);
+      state.items[indexItem].count = state.items[indexItem].count - 1
+
+      state.totalCount -= +state.items[indexItem].price;
+    }, 
     removeItem: (state, action) =>{
-      state.items.filter((arrow) => arrow.id !== action.payload);
+      const indexItem = state.items.findIndex(item=>item.id == action.payload);
+      state.totalCount -= (+state.items[indexItem].price *  +state.items[indexItem].count);
+      state.items = state.items.filter((arrow) => arrow.id !== action.payload);
     },
     getTotalPrice: (state, action)=>{
       state.totalCount = state.items.reduce((acc, item)=>{
@@ -25,5 +38,5 @@ export const basketSlice = createSlice({
   }
 })
 
-export const  {setItem, removeItem, getTotalPrice} = basketSlice.actions;
+export const  {setItem, removeItem, getTotalPrice, AddItemCount, decreaseItemCount} = basketSlice.actions;
 export default basketSlice.reducer;

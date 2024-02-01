@@ -3,6 +3,21 @@
   padding: 0 2%;
 }
 .basket-item{
-  display: flex;
-  justify-content: space-around;
+  text-align: justify;
+}
+
+.basket-icon{
+  cursor: pointer;
+}
+.basket-icon:active{
+  transform: scale(.9);
+}
+.basket-icon:active svg{
+  fill:var(--tg-theme-button-color);
+}
+.basket-icon svg{
+  width: 20px;
+  height: auto;
+  fill: var(--tg-theme-text-color);
+  
 }

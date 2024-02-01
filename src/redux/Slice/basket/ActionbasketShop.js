@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setItem, removeItem } from './basketShopSlice';
+import { setItem, removeItem, AddItemCount, decreaseItemCount } from './basketShopSlice';
 
 const UseActionBasket = () => {
   const dispatch = useDispatch();
@@ -7,11 +7,16 @@ const UseActionBasket = () => {
   const AddItem = ( action )=>{
     dispatch(setItem(action))
   };
+  const pluseItemCount = ( action )=>{
+    dispatch(AddItemCount(action))
+  };
+  const decreasesItemCount = ( action )=>{
+    dispatch(decreaseItemCount(action))
+  };
   const dropItem = (action) =>{
-    console.log(action);
     dispatch(removeItem(action))
   };
-  return({AddItem, dropItem})
+  return({AddItem, dropItem, pluseItemCount, decreasesItemCount})
 }
 
 export default UseActionBasket;
