@@ -38,10 +38,13 @@ const Basket = () => {
       queryId,
     }
     if(Object.keys(form).length !== 0){
-      fetch('https://nodebot-kli7.onrender.com/web-data',{
+      axios.post('https://nodebot-kli7.onrender.com/web-data',{
+        method:'POST',
         headers:{
           'Content-Type':'application/json',
+          "Access-Control-Allow-Origin": "*"
         },
+        
         body:JSON.stringify(data)
       })
 
