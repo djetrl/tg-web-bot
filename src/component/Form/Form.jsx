@@ -32,6 +32,11 @@ const validate = (values) => {
   }else if (!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(values.email)){
     errors.email = 'Invalid email';
   }
+  if(!values.contry){
+    errors.contry = 'Required';
+  }else if(!values.contry.length > 2){
+    errors.contry = 'To short';
+  }
   return errors;
 
 
@@ -48,6 +53,7 @@ const Form = () => {
       name:'',
       phone:'',
       email:'',
+      contry:''
     },
     validate: validate,
 
@@ -67,7 +73,8 @@ const Form = () => {
     formik.values.phone,
     formik.values.name,
     formik.values.email,
-    formik.values.city
+    formik.values.city,
+    formik.values.contry
   ])
   useEffect(()=>{
     tg.onEvent('mainButtonClicked', onSendDate);
@@ -88,6 +95,7 @@ const Form = () => {
       !formik.values.phone ||
       !formik.values.postalCode ||
       !formik.values.street ||
+      !formik.values.contry || 
       Object.keys(formik.errors).length === 0
       ){
       tg.MainButton.hide();
@@ -100,7 +108,8 @@ const Form = () => {
     formik.values.phone,
     formik.values.name,
     formik.values.email,
-    formik.values.city
+    formik.values.city,
+    formik.values.contry
   ])
 
 
@@ -130,6 +139,13 @@ const Form = () => {
             <div>{formik.errors.email}</div>
           ) : null}
       </div>
+      <div className='form-item'>
+          <label htmlFor="contry">Страна</label>
+          <input id="contry" type="text" className={'input'}  {...formik.getFieldProps('contry')} />
+          {formik.touched.contry && formik.errors.contry ? (
+            <div>{formik.errors.contry}</div>
+          ) : null}
+      </div>
       <div className="form-group">
         <div className='form-item'>
             <label htmlFor="city">Город</label>
@@ -154,6 +170,7 @@ const Form = () => {
           ) : null}
       </div>
     </form>
+    <button onClick={onSendDate}>fd</button>
     </>
   );
 };
