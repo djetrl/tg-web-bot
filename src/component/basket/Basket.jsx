@@ -37,7 +37,7 @@ const Basket = () => {
       totalPrice: totalCount,
       queryId,
     }
-    if(formСompleted){
+    if(Object.keys(form).length === 0){
       console.log(JSON.stringify({data, form}));
       axios.post('https://nodebot-kli7.onrender.com/web-data',{
         method:'POST',
@@ -56,7 +56,6 @@ const Basket = () => {
   },[items, queryId, form])
   useEffect(()=>{
 
-    console.log(form);
     if(Object.keys(form).length === 0){
       setFormСompleted(false)
     }else{
