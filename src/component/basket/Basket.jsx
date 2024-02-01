@@ -38,6 +38,7 @@ const Basket = () => {
       queryId,
     }
     if(formСompleted){
+      console.log(JSON.stringify({data, form}));
       axios.post('https://nodebot-kli7.onrender.com/web-data',{
         method:'POST',
         headers:{
