@@ -37,19 +37,23 @@ const Basket = () => {
       totalPrice: totalCount,
       queryId,
     }
-    if(Object.keys(form).length === 0){
-      console.log(JSON.stringify({data, form}));
+    if(Object.keys(form).length !== 0){
+      fetch('https://nodebot-kli7.onrender.com/web-data',{
+        headers:{
+          'Content-Type':'application/json',
+        },
+        body:JSON.stringify(data)
+      })
       axios.post('https://nodebot-kli7.onrender.com/web-data',{
         method:'POST',
         headers:{
           'Content-Type':'application/json',
-          'Access-Control-Allow-Origin' : '*',
-          'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          "Access-Control-Allow-Origin": "*",
+           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+
         },
-        body:JSON.stringify({data, form})
       })
     }else{
-      alert('f')
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
@@ -58,6 +62,7 @@ const Basket = () => {
   },[items, queryId, form])
   useEffect(()=>{
 
+    console.log(form);
     if(Object.keys(form).length === 0){
       setFormСompleted(false)
     }else{
