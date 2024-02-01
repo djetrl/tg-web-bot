@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useFormik } from 'formik';
+import UseActionForm from '../../redux/Slice/form/ActionForm';
 import { useTelegram } from '../../hooks/useTelegram';
 import './Form.css';
 const validate = (values) => {
@@ -32,10 +33,10 @@ const validate = (values) => {
   }else if (!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(values.email)){
     errors.email = 'Invalid email';
   }
-  if(!values.contry){
-    errors.contry = 'Required';
-  }else if(!values.contry.length > 2){
-    errors.contry = 'To short';
+  if(!values.country){
+    errors.country = 'Required';
+  }else if(!values.country.length > 2){
+    errors.country = 'To short';
   }
   return errors;
 
@@ -45,6 +46,7 @@ const validate = (values) => {
 
 const Form = () => {
   const {tg} = useTelegram();
+  const {addData} = UseActionForm();
   const formik = useFormik({
     initialValues: {
       street: '', 
@@ -53,20 +55,17 @@ const Form = () => {
       name:'',
       phone:'',
       email:'',
-      contry:''
+      country:''
     },
     validate: validate,
 
     onSubmit: values => {
+      addData(values);
       tg.sendData(JSON.stringify(values))
     },
   });
   const onSendDate = useCallback(()=>{
-
-
       formik.handleSubmit()
-
-    // tg.sendData(JSON.stringify(data))
   },[
     formik.values.street, 
     formik.values.postalCode, 
@@ -74,7 +73,7 @@ const Form = () => {
     formik.values.name,
     formik.values.email,
     formik.values.city,
-    formik.values.contry
+    formik.values.country
   ])
   useEffect(()=>{
     tg.onEvent('mainButtonClicked', onSendDate);
@@ -95,7 +94,7 @@ const Form = () => {
       !formik.values.phone ||
       !formik.values.postalCode ||
       !formik.values.street ||
-      !formik.values.contry || 
+      !formik.values.country || 
       Object.keys(formik.errors).length === 0
       ){
       tg.MainButton.hide();
@@ -109,7 +108,7 @@ const Form = () => {
     formik.values.name,
     formik.values.email,
     formik.values.city,
-    formik.values.contry
+    formik.values.country
   ])
 
 
@@ -140,10 +139,10 @@ const Form = () => {
           ) : null}
       </div>
       <div className='form-item'>
-          <label htmlFor="contry">Страна</label>
-          <input id="contry" type="text" className={'input'}  {...formik.getFieldProps('contry')} />
-          {formik.touched.contry && formik.errors.contry ? (
-            <div>{formik.errors.contry}</div>
+          <label htmlFor="country">Страна</label>
+          <input id="country" type="text" className={'input'}  {...formik.getFieldProps('country')} />
+          {formik.touched.country && formik.errors.country ? (
+            <div>{formik.errors.country}</div>
           ) : null}
       </div>
       <div className="form-group">
@@ -170,7 +169,6 @@ const Form = () => {
           ) : null}
       </div>
     </form>
-    <button onClick={onSendDate}>fd</button>
     </>
   );
 };
