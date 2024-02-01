@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import UseActionForm from '../../redux/Slice/form/ActionForm';
 import { useTelegram } from '../../hooks/useTelegram';
@@ -45,6 +45,7 @@ const validate = (values) => {
 };
 
 const Form = () => {
+  const [showModal, setShowModal] = useState(false)
   const {tg} = useTelegram();
   const {addData} = UseActionForm();
   const formik = useFormik({
@@ -61,6 +62,10 @@ const Form = () => {
 
     onSubmit: values => {
       addData(values);
+      setShowModal(true)
+      setTimeout(() => {
+        setShowModal(false);
+      }, 3000);
       tg.sendData(JSON.stringify(values))
     },
   });
@@ -75,45 +80,15 @@ const Form = () => {
     formik.values.city,
     formik.values.country
   ])
-  useEffect(()=>{
-    tg.onEvent('mainButtonClicked', onSendDate);
-    return ()=>{
-      tg.offEvent('mainButtonClicked', onSendDate);
-    }
-  },[onSendDate])
-  useEffect(() => {
-    tg.MainButton.setParams({
-      text: 'Отправить данные'
-    })
-  },[])
-  useEffect(() => {
-    if(
-      !formik.values.city || 
-      !formik.values.email ||
-      !formik.values.name ||
-      !formik.values.phone ||
-      !formik.values.postalCode ||
-      !formik.values.street ||
-      !formik.values.country || 
-      Object.keys(formik.errors).length === 0
-      ){
-      tg.MainButton.hide();
-    }else{
-      tg.MainButton.show();
-    }
-  },[
-    formik.values.street, 
-    formik.values.postalCode, 
-    formik.values.phone,
-    formik.values.name,
-    formik.values.email,
-    formik.values.city,
-    formik.values.country
-  ])
 
 
   return (
     <>
+    {showModal && (
+             <div className="modal">
+                Заполните форму для покупки
+            </div>
+     )}
     <form className={'form'} onSubmit={formik.handleSubmit}>
       <h3>Введите ваши данные</h3>
       <div className='form-item'>
@@ -169,7 +144,7 @@ const Form = () => {
           ) : null}
       </div>
     </form>
-    <button onClick={onSendDate}>send</button>
+    <button className='button add-btn' onClick={onSendDate}>send</button>
     </>
   );
 };

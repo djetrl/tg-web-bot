@@ -11,15 +11,9 @@ import './Basket.css'
 const sendMail = value=>{
   emailjs.send('service_pofldjet', 'template_3cctkvc', value, 'ZeuxMoL7oP8N-HPde')      
     .then((result) => {
-      setSendMailModal('ok');
-      setTimeout(()=>{
-        setSendMailModal(false);
-      }, 1000);
+        console.log(result);
     }, (error) => {
-      setSendMailModal('error');
-      setTimeout(()=>{
-        setSendMailModal(false);
-      }, 1000);
+      console.log(error);
     });
 }
 
@@ -50,6 +44,7 @@ const Basket = () => {
         },
         body:JSON.stringify(data)
       })
+      sendMail({data, form});
     }else{
       setShowModal(true);
       setTimeout(() => {
@@ -110,7 +105,7 @@ const Basket = () => {
     ):(
       <>
           {showModal && (
-                  <div className="modal">
+                  <div className="modal modal-basket">
                      Заполните форму для покупки
                  </div>
           )}
