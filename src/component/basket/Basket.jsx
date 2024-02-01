@@ -1,13 +1,13 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import {DeleteOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, MinusOutlined, PlusOutlined, FrownOutlined} from '@ant-design/icons';
 import UseActionBasket from '../../redux/Slice/basket/ActionbasketShop';
 import {useTelegram} from '../../hooks/useTelegram';
 import './Basket.css'
 const Basket = () => {
   const {tg, queryId} = useTelegram();
   const totalCount = useSelector((state) => state.basket.totalCount)
-  const items = useSelector((state) => state.basket.items)
+  const items = useSelector((state) => state.basket.items);
   const {dropItem, pluseItemCount, decreasesItemCount} = UseActionBasket();
   const onSendDate = useCallback(()=>{
     const data = {
@@ -23,12 +23,28 @@ const Basket = () => {
       body:JSON.stringify(data)
     })
   },[items, queryId])
+
+
   useEffect(()=>{
     tg.onEvent('mainButtonClicked', onSendDate);
     return ()=>{
       tg.offEvent('mainButtonClicked', onSendDate);
     }
   },[onSendDate])
+
+
+  useEffect(()=>{
+    if(items.length === 0){
+      tg.MainButton.hide();
+
+    }else{
+      tg.MainButton.show();
+      tg.MainButton.setParams({
+        text: `купить ${totalCount}`
+      })
+    }
+  })
+
   useEffect(()=>{
     if(items.length === 0){
       tg.MainButton.hide();
@@ -59,7 +75,13 @@ const Basket = () => {
   // Заменить на таблицу
 
   return (
-    <table className='basket'>
+  items.length == 0 ? (
+    <div className="basketNoting">
+      <FrownOutlined />
+      <p>Тут пока пусто</p>
+    </div>
+    ):(
+      <table className='basket'>
       <thead>
         <tr className="basket-item">
           <td> Название </td>
@@ -86,6 +108,8 @@ const Basket = () => {
       }
       </tbody>
     </table>
+    )
+
   );
 };
 
