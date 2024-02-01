@@ -44,15 +44,7 @@ const Basket = () => {
         },
         body:JSON.stringify(data)
       })
-      axios.post('https://nodebot-kli7.onrender.com/web-data',{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          "Access-Control-Allow-Origin": "*",
-           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
 
-        },
-      })
     }else{
       setShowModal(true);
       setTimeout(() => {
