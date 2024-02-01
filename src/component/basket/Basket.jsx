@@ -28,7 +28,30 @@ const sendMail = value=>{
       console.log(error);
     });
 }
+const googleSheet = (value)=>{
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwhquvz8dv9BZ0kiHhX0Mrj9YAKl2vCe54Wz9aqRWVZu7TfRAtZt0Del3pSmAPHniQg4A/exec'
+  let data = new URLSearchParams(Object.entries({
+    name:value.form.name,
+    phone:value.form.phone,
+    email:value.form.email,
+    country:value.form.country,
+    city:value.form.city,
+    street:value.form.street,
+    postalCode:value.form.postalCode,
+    product:JSON.stringify(value.data.product),
+    totalPrice:value.data.totalPrice,
+  })).toString();
+ 
 
+  fetch(scriptURL,{
+    method:'POST',
+    headers:{
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body:data,
+    mode:'no-cors'
+  })
+}
 const Basket = () => {
   const [formСompleted, setFormСompleted] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -57,6 +80,7 @@ const Basket = () => {
         body:JSON.stringify(data)
       })
       sendMail({data, form});
+      googleSheet({data, form})
     }else{
       setShowModal(true);
       setTimeout(() => {
