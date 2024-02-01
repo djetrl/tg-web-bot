@@ -5,7 +5,24 @@ import axios from 'axios'
 import {DeleteOutlined, MinusOutlined, PlusOutlined, FrownOutlined} from '@ant-design/icons';
 import UseActionBasket from '../../redux/Slice/basket/ActionbasketShop';
 import {useTelegram} from '../../hooks/useTelegram';
+import emailjs from '@emailjs/browser';
 import './Basket.css'
+
+const sendMail = value=>{
+  emailjs.send('service_pofldjet', 'template_3cctkvc', value, 'ZeuxMoL7oP8N-HPde')      
+    .then((result) => {
+      setSendMailModal('ok');
+      setTimeout(()=>{
+        setSendMailModal(false);
+      }, 1000);
+    }, (error) => {
+      setSendMailModal('error');
+      setTimeout(()=>{
+        setSendMailModal(false);
+      }, 1000);
+    });
+}
+
 const Basket = () => {
   const [formСompleted, setFormСompleted] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -29,10 +46,11 @@ const Basket = () => {
         body:JSON.stringify({data, form})
       })
     }else{
+      alert('f')
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
-      }, 300);
+      }, 3000);
     }
   },[items, queryId, form])
   useEffect(()=>{
@@ -119,6 +137,7 @@ const Basket = () => {
             }
             </tbody>
           </table>
+          <button onClick={onSendDate}>send</button>
       </>
     )
 

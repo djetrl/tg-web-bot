@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../button/Button';
 import { useTelegram } from '../../hooks/useTelegram';
-import {ShoppingCartOutlined} from '@ant-design/icons'
+import {ShoppingCartOutlined, FormOutlined} from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import './Header.css'
@@ -16,6 +16,7 @@ const Header = () => {
         {counter == 0 || counter === undefined ?  user?.username : (`${counter} руб`)}
       </span>
       <ShoppingCartOutlined className='shopIcon' onClick={()=>{window.location.pathname === '/basket'? navigate('/') : navigate('/basket')}} />
+      <FormOutlined className='shopIcon' onClick={()=>navigate('/form')} />
     </div>
   );
 };
