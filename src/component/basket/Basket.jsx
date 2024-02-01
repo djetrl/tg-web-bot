@@ -9,7 +9,19 @@ import emailjs from '@emailjs/browser';
 import './Basket.css'
 
 const sendMail = value=>{
-  emailjs.send('service_pofldjet', 'template_3cctkvc', value, 'ZeuxMoL7oP8N-HPde')      
+  emailjs.send('service_pofldjet', 'template_3cctkvc', 
+  {
+  name:value.form.name,
+  phone:value.form.phone,
+  email:value.form.email,
+  country:value.form.country,
+  city:value.form.city,
+  street:value.form.street,
+  postalCode:value.form.postalCode,
+  product:JSON.stringify(value.data.product),
+  totalPrice:value.data.totalPrice,
+},
+  'ZeuxMoL7oP8N-HPde')      
     .then((result) => {
         console.log(result);
     }, (error) => {
