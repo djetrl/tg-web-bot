@@ -36,7 +36,7 @@ const Basket = () => {
     }else{
       tg.MainButton.show();
       tg.MainButton.setParams({
-        text: `купить ${getTotalPrice(newItems)}`
+        text: `купить ${totalCount}`
       })
     }
   })
