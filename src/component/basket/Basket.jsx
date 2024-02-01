@@ -62,9 +62,9 @@ const Basket = () => {
     <table className='basket'>
       <thead>
         <tr className="basket-item">
-          <td  className="basket-item-title"> Название </td>
-          <td  className="basket-item-price"> цена </td>
-          <td  className="basket-item-price"> количество </td>
+          <td> Название </td>
+          <td> цена </td>
+          <td> количество </td>
         </tr>
       </thead>
       <tbody>

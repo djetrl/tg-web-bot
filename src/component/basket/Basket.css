@@ -5,7 +5,9 @@
 .basket-item{
   text-align: justify;
 }
-
+.basket-item td{
+  padding-bottom: 1%;
+}
 .basket-icon{
   cursor: pointer;
 }
