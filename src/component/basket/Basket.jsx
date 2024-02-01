@@ -172,7 +172,6 @@ const Basket = () => {
             }
             </tbody>
           </table>
-          <button onClick={onSendDate}>send</button>
       </>
     )
 
