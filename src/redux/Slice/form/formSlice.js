@@ -7,7 +7,8 @@ export const formSlice = createSlice({
   initialState,
   reducers:{
     setDataForm:(state, action)=>{
-      state.data =  Object.assign(state.data, action.payload);
+      console.log(action.payload);
+      state.data = action.payload
     }
 
   }

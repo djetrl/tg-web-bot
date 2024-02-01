@@ -169,6 +169,7 @@ const Form = () => {
           ) : null}
       </div>
     </form>
+    <button onClick={onSendDate}>send</button>
     </>
   );
 };
