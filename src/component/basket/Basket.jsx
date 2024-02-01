@@ -38,23 +38,25 @@ const Basket = () => {
       queryId,
     }
     if(Object.keys(form).length !== 0){
-      axios.post('https://nodebot-kli7.onrender.com/web-data',{
+      const data = {
+        product: items, 
+        totalPrice: totalCount,
+        queryId,
+      }
+      fetch('https://nodebot-kli7.onrender.com/web-data',{
         method:'POST',
         headers:{
           'Content-Type':'application/json',
-          "Access-Control-Allow-Origin": "*"
         },
-        
         body:JSON.stringify(data)
       })
-
     }else{
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
       }, 3000);
     }
-  },[items, queryId, form])
+  },[items, queryId])
   useEffect(()=>{
 
     console.log(form);
