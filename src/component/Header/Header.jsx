@@ -15,8 +15,7 @@ const Header = () => {
       <span className='username'>
         {counter == 0 || counter === undefined ?  user?.username : (`${counter} руб`)}
       </span>
-      <ShoppingCartOutlined className='shopIcon' onClick={()=>navigate('/basket')} />
-      <ShoppingCartOutlined className='shopIcon' onClick={()=>navigate('/')} />
+      <ShoppingCartOutlined className='shopIcon' onClick={()=>{window.location.pathname === '/basket'? navigate('/') : navigate('/basket')}} />
     </div>
   );
 };
