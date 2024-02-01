@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect  } from 'react';
 import './ProductList.css';
 import ProductItem from '../ProductItem/ProductItem';
-import {useTelegram} from '../../hooks/useTelegram';
 import UseActionBasket from '../../redux/Slice/basket/ActionbasketShop';
 const product = [
   {id:'1', title:'Джинсы', price: 5000, description: 'Синего цвета, прямые'},
@@ -14,54 +13,12 @@ const product = [
   {id:'8', title:'Джинсы 4', price: 12000, description: 'Зеленого цвета, теплая'},
 
 ]
-const getTotalPrice = (items = [])=>{
-  return items.reduce((acc, item)=>{
-    return acc += item.price
-  }, 0)
-}
 const ProductList = () => {
-  const [addedItems, setAddedItems] = useState([]);
-  const {tg, queryId} = useTelegram();
-  const {AddItem} = UseActionBasket();
-  const onSendDate = useCallback(()=>{
-    const data = {
-      product: addedItems, 
-      totalPrice: getTotalPrice(addedItems),
-      queryId,
-    }
-    fetch('https://nodebot-kli7.onrender.com/web-data',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-      },
-      body:JSON.stringify(data)
-    })
-  },[addedItems, queryId])
-  useEffect(()=>{
-    tg.onEvent('mainButtonClicked', onSendDate);
-    return ()=>{
-      tg.offEvent('mainButtonClicked', onSendDate);
-    }
-  },[onSendDate])
-  const onAdd = (product) => {
-    const alreadyAdded = addedItems.find(item => item.id === product.id);
-    let newItems = [];
-    if(alreadyAdded){
-      newItems = addedItems.filter(item => item.id !== product.id);
-    }else{
-      newItems = [...addedItems, product]
-      AddItem(product)
-    }
-    setAddedItems(newItems);
-    if(newItems.length === 0){
-      tg.MainButton.hide();
 
-    }else{
-      tg.MainButton.show();
-      tg.MainButton.setParams({
-        text: `купить ${getTotalPrice(newItems)}`
-      })
-    }
+  const {AddItem} = UseActionBasket();
+
+  const onAdd = (product) => {
+    AddItem(product)
   }
   return (
     <div className="list">
